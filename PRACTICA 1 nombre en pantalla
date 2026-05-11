@@ -1,0 +1,11 @@
+from machine import Pin, I2C
+from lcd_i2c import I2cLcd
+from time import sleep
+
+lcd = I2cLcd(0x27, 2, 16)
+
+lcd.clear()
+lcd.move_to(0, 0)
+lcd.putstr("sebas")
+lcd.move_to(0, 1)
+lcd.putstr("villavicencio")
