@@ -1,0 +1,56 @@
+from machine import Pin, I2C
+from time import sleep
+from lcd_i2c import I2cLcd
+
+# CONFIGURAR I2C
+i2c = I2C(0, scl=Pin(22), sda=Pin(21), freq=400000)
+
+# CONFIGURAR LCD 16x2
+lcd = I2cLcd(0x27, 2, 16)
+
+# FIGURA PERSONALIZADA
+figura = [
+    0b00100,
+    0b01110,
+    0b11111,
+    0b01110,
+    0b01110,
+    0b00000,
+    0b00000,
+    0b00000
+]
+
+# GUARDAR FIGURA
+lcd.custom_char(0, figura)
+
+while True:
+
+    # IZQUIERDA A DERECHA
+    for x in range(16):
+
+        # ARRIBA
+        lcd.clear()
+        lcd.move_to(x, 0)
+        lcd.putchar(chr(0))
+        sleep(0.15)
+
+        # ABAJO
+        lcd.clear()
+        lcd.move_to(x, 1)
+        lcd.putchar(chr(0))
+        sleep(0.15)
+
+    # DERECHA A IZQUIERDA
+    for x in range(15, -1, -1):
+
+        # ARRIBA
+        lcd.clear()
+        lcd.move_to(x, 0)
+        lcd.putchar(chr(0))
+        sleep(0.15)
+
+        # ABAJO
+        lcd.clear()
+        lcd.move_to(x, 1)
+        lcd.putchar(chr(0))
+        sleep(0.15)
